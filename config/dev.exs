@@ -10,7 +10,7 @@ config :demo, DemoWeb.Endpoint,
   http: [port: System.get_env("PORT") || 4000],
   # https: [port: 4001, certfile: "priv/cert/selfsigned.pem", keyfile: "priv/cert/selfsigned_key.pem"],
   debug_errors: true,
-  code_reloader: true,
+  code_reloader: false,
   check_origin: false,
   protocol_options: [
     max_header_name_length: 64,
