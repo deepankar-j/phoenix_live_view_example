@@ -18,10 +18,13 @@
       <td><%= user.phone_number %></td>
 
       <td>
-        <%= link "Show", to: Routes.live_path(@socket, UserLive.Show, user) %>
-        <%= link "Edit", to: Routes.live_path(@socket, UserLive.Edit, user) %>
+        <%= link "Show", to: Routes.live_path(@socket, UserLive.Show, user), style: "margin-right:1rem;" %>
+        <%= live_patch to: Routes.live_path(@socket, UserLive.Index, user: user.username) do %>
+        Edit (Component)
+        <% end %>
         <%= link "Delete", to: "#",
             phx_click: "delete_user",
+            style: "margin-left:1rem;",
             phx_value_id: user.id %>
       </td>
     </tr>
@@ -38,3 +41,8 @@
 <span><%= live_patch "next", to: Routes.live_path(@socket, UserLive.Index, @page + 1) %></span>
 <br/>
 <span><%= live_redirect "New User (live)", to: Routes.live_path(@socket, UserLive.New) %></span>
+
+
+<%= if @current_user != nil do %>
+  <%= live_component @socket, UserLive.EditComponent, id: "edit_#{@current_user.username}", user: @current_user %>
+<% end %>
